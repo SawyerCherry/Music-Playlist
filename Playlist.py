@@ -41,14 +41,44 @@ class Playlist:
   # TODO: Create a method called remove_song that removes a song from the playlist. This method takes one parameter, title, which is the song that should be removed. 
 
   def remove_song(self, title):
-    pass
+    current_song = self.__first_song
+    previous_song = None
+    exists = False
+    while not exists:
+      if current_song == None:
+        print(f"Could not find {title} in the Playlist.")
+        exists = False
+        return
+      elif current_song.get_title() == title:
+        exists = True
+      else: 
+        previous_song = current_song
+        current_song = current_song.get_next_song()
+    if previous_song == None:
+      self.__first_song = current_song.get_next_song()
+    else:
+      previous_song.set_next_song(current_song.get_next_song())
+    
+
+    
 
 
 
   # TODO: Create a method called length, which returns the number of songs in the playlist.
 
   def length(self):
-    pass
+    current_song = self.__first_song
+    count = 0
+    if current_song == None:
+      print("There are no songs in your Playlist.")
+    else: 
+      while current_song.get_next_song() != None:
+        count += 1 
+        current_song = current_song.get_next_song()
+    return count + 1
+
+
+    
 
 
   # TODO: Create a method called print_songs that prints a numbered list of the songs in the playlist.
@@ -59,6 +89,15 @@ class Playlist:
   # 3. Song Title 3
 
   def print_songs(self):
-    pass
+    current_song = self.__first_song
+    count = 1 
+    if current_song == None: 
+      print("There are no songs in your Playlist.")
+    else: 
+      while current_song != None:
+        print(f"{count} {current_song.get_title()}")
+        count += 1
+        current_song = current_song.get_next_song()
+
 
   
